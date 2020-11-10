@@ -16,7 +16,6 @@
        FA 2020
     </h4> 
 </center>
-
 ------------------------------------------
 
 ### Abstract
@@ -32,6 +31,12 @@ Once we open source the code for `20FA VE370 Project 2` and if you want to refer
 - Liu Yihua: Complete the first design of state register modules.
 - Shen Yang:  Complete the first design of forwording unit module.
 - Peng Haotian: Complete the first design of data hazard detection unit module.
+
+### Second Stage
+
+**Due Date: 22:00 pm 20/11/11 Wed.**
+
+- Detailed work assignment in [team-rpt-assignment](https://github.com/zzp1012/VE370-Project2/tree/team-rpt/teamrpt).
 
 ### Code Style
 

@@ -18,7 +18,9 @@
 </center>
 ------------------------------------------
 
-### Assignment
+### Work Assignment
+
+**Due Date: 22:00 pm 20/11/11 Wed.**
 
 1. Abstract (5-6) (lyh)
 2. Introduction (5-10) (lyh)
@@ -41,6 +43,7 @@
 6. Reference (copy from readme)
 7. Appendix (zzp)
 
+**The meeting record link: ** [click here](https://drive.google.com/file/d/1iAs9tbjhTJe1P7YS87QARz5chxXsnBAv/view?usp=sharing).
 
 ### Reference
 
