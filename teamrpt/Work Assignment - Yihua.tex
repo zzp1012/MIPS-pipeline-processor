@@ -1,0 +1,187 @@
+\documentclass[a4paper]{article}
+\usepackage{amsmath,amssymb,float,geometry,indentfirst,multicol,multirow,pdfpages,tabularx}
+\geometry{left=3.5cm,right=3.5cm,top=3.3cm,bottom=3.3cm}
+\setlength{\parindent}{2em}
+\begin{document}
+\section{Abstract}
+In this report, we demonstrate our implementation of a 5-stage pipelined processor based on MIPS instruction set and Verilog HDL modeling.
+Our project implements a pipelined processor in MIPS architecture with a forwarding unit and a hazard detecting unit to resolve hazard issues.
+We use Verilog HDL to model the processor and verify our design by Vivado simulation included in this report. Besides, we also demonstrate our design on a FPGA board.
+\\\\
+\noindent\textbf{Keywords:} MIPS, pipelined processor, Verilog HDL
+\section{Introduction}
+In this project, we implement a 5-stage pipelined processor based on MIPS instruction set with a forwarding unit and a hazard detecting unit to resolve hazard issues.
+MIPS is an open source instruction set architecture with high performance that is widely used in embedded systems.
+Pipelined processor is implemented by a technique called instruction pipelining that is implemented by dividing instructions into a series of pipelines so that the processor's cycle time is reduced.
+It is simple, reliable, and fast.
+
+To realize instruction pipelining, we divide the handling of instructions into 5 stages: IF (instruction fetch), ID (instruction decode), EX (execute), MEM (memory access), and (register write back).
+Between them, we have 4 stage registers: IF/ID register, ID/EX register, EX/MEM register, MEM/WB register.
+In the first stage, we acquire PC address and instruction from instruction memory;
+in the second stage, we acquire control signals, do register reading or writing if applicable, and detect hazards;
+in the third stage, we do ALU (Arithmetic Logic Unit) calculation and forwarding if applicable;
+in the fourth stage, we read or write data from the data memory;
+in the fifth stage, we select a write-back signal.
+\section{Description}
+\subsection{Stage Register}
+In pipelined processor, we use four stage registers to process signals: IF/ID, ID/EX, EX/MEM, MEM/WB. The names of wires and registers we use in state registers with their corresponding descriptions are list below.
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|l|l|}
+        \hline
+        &Name&Descriptions\\
+        \hline
+        \multirow{5}{*}{input}&clk&clock signal\\
+        \cline{2-3}
+        &IFID\_write&whether to write IF/ID stage register\\
+        \cline{2-3}
+        &IF\_flush&whether to flush IF stage\\
+        \cline{2-3}
+        &IF\_instr&instruction from the instruction memory in IF stage\\
+        \cline{2-3}
+        &IF\_pcplus4&the value of PC + 4 in IF stage\\
+        \hline
+        \multirow{2}{*}{output}&IFID\_instr&instruction output from IF/ID stage register\\
+        \cline{2-3}
+        &IFID\_pcplus4&the value of PC + 4 output from IF/ID stage register\\
+        \hline
+    \end{tabular}
+    \caption{IF/ID stage register.}
+\end{table}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|l|l|}
+        \hline
+        &Name&Descriptions\\
+        \hline
+        \multirow{15}{*}{input}&clk&clock signal\\
+        \cline{2-3}
+        &IF\_flush&whether to flush IF stage\\
+        \cline{2-3}
+        &regReadData1ID&registers read data 1 in ID stage\\
+        \cline{2-3}
+        &regReadData2ID&registers read data 2 in ID stage\\
+        \cline{2-3}
+        &signExtendID&output of sign-extend in ID stage\\
+        \cline{2-3}
+        &registerRsID&the value of register rs in ID stage\\
+        \cline{2-3}
+        &registerRtID&the value of register rt in ID stage\\
+        \cline{2-3}
+        &registerRdID&the value of register rd in ID stage\\
+        \cline{2-3}
+        &aluOpID&control signal ALUOp in ID stage\\
+        \cline{2-3}
+        &regDstID&control signal RegDst in ID stage\\
+        \cline{2-3}
+        &memReadID&control signal MemRead in ID stage\\
+        \cline{2-3}
+        &memtoRegID&control signal MemtoReg in ID stage\\
+        \cline{2-3}
+        &memWriteID&control signal MemWrite in ID stage\\
+        \cline{2-3}
+        &aluSrcID&control signal ALUSrc in ID stage\\
+        \cline{2-3}
+        &regWriteID&control signal RegWrite in ID stage\\
+        \hline
+        \multirow{13}{*}{output}&regReadData1EX&registers read data 1 in EX stage\\
+        \cline{2-3}
+        &regReadData2EX&registers read data 2 in EX stage\\
+        \cline{2-3}
+        &signExtendEX&output of sign-extend in EX stage\\
+        \cline{2-3}
+        &registerRsEX&the value of register rs in EX stage\\
+        \cline{2-3}
+        &registerRtEX&the value of register rt in EX stage\\
+        \cline{2-3}
+        &registerRdEX&the value of register rd in EX stage\\
+        \cline{2-3}
+        &aluOpEX&control signal ALUOp in EX stage\\
+        \cline{2-3}
+        &regDstEX&control signal RegDst in EX stage\\
+        \cline{2-3}
+        &memReadEX&control signal MemRead in EX stage\\
+        \cline{2-3}
+        &memtoRegEX&control signal MemtoReg in EX stage\\
+        \cline{2-3}
+        &memWriteEX&control signal MemWrite in EX stage\\
+        \cline{2-3}
+        &aluSrcEX&control signal ALUSrc in EX stage\\
+        \cline{2-3}
+        &regWriteEX&control signal RegWrite in EX stage\\
+        \hline
+    \end{tabular}
+    \caption{ID/EX stage register.}
+\end{table}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|l|l|}
+        \hline
+        &Name&Descriptions\\
+        \hline
+        \multirow{8}{*}{input}&Clock&clock signal\\
+        \cline{2-3}
+        &EX\_MemRead&control signal MemRead in EX stage\\
+        \cline{2-3}
+        &EX\_MemtoReg&control signal MemtoReg in EX stage\\
+        \cline{2-3}
+        &EX\_MemWrite&control signal MemWrite in EX stage\\
+        \cline{2-3}
+        &EX\_RegWrite&control signal RegWrite in EX stage\\
+        \cline{2-3}
+        &EX\_MUX8\_out&the destination register in EX stage\\
+        \cline{2-3}
+        &EX\_ALU\_result&ALU result as an output of ALU in EX stage\\
+        \cline{2-3}
+        &EX\_MUX6\_out&the value of R[rt] in EX stage\\
+        \hline
+        \multirow{7}{*}{output}&MEM\_MemRead&control signal MemRead in MEM stage\\
+        \cline{2-3}
+        &MEM\_MemtoReg&control signal MemtoReg in MEM stage\\
+        \cline{2-3}
+        &MEM\_MemWrite&control signal MemWrite in MEM stage\\
+        \cline{2-3}
+        &MEM\_RegWrite&control signal RegWrite in MEM stage\\
+        \cline{2-3}
+        &MEM\_MUX8\_out&the destination register in MEM stage\\
+        \cline{2-3}
+        &MEM\_ALU\_result&ALU result as an output of ALU in MEM stage\\
+        \cline{2-3}
+        &MEM\_MUX6\_out&the value of R[rt] in MEM stage\\
+        \hline
+    \end{tabular}
+    \caption{EX/MEM stage register.}
+\end{table}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|l|l|}
+        \hline
+        &Name&Descriptions\\
+        \hline
+        \multirow{6}{*}{input}&Clock&clock signal\\
+        \cline{2-3}
+        &MEM\_RegWrite&control signal RegWrite in MEM stage\\
+        \cline{2-3}
+        &MEM\_MemtoReg&control signal MemtoReg in MEM stage\\
+        \cline{2-3}
+        &MEM\_MUX8\_out&the destination register in MEM stage\\
+        \cline{2-3}
+        &MEM\_Data\_memory\_Read\_data&data memory read data in MEM stage\\
+        \cline{2-3}
+        &MEM\_ALU\_result&ALU result as an output of ALU in MEM stage\\
+        \hline
+        \multirow{5}{*}{output}&WB\_MemtoReg&control signal MemtoReg in WB stage\\
+        \cline{2-3}
+        &WB\_RegWrite&control signal RegWrite in WB stage\\
+        \cline{2-3}
+        &WB\_MUX8\_out&the destination register in WB stage\\
+        \cline{2-3}
+        &WB\_Data\_memory\_Read\_data&data memory read data in WB stage\\
+        \cline{2-3}
+        &WB\_ALU\_result&ALU result as an output of ALU in WB stage\\
+        \hline
+    \end{tabular}
+    \caption{MEM/WB stage register.}
+\end{table}
+\subsection{Instruction Memory \& Data Mememory Byte-accessible}
+\end{document}
