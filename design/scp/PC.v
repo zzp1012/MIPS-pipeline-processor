@@ -30,13 +30,17 @@ module PC(curr, clk, next);
     reg     [word - 1:0]    PC_mem;
     
     initial begin
+        $display("===============================================");
+        $display("Time: %d, CLK = %b, PC = %h", $time, 1'b1, PC_mem);
         PC_mem = 0;
     end
 
-    always @(posedge clk) begin
+    always @(clk) begin
         if (clk == 1'b1) begin
             PC_mem = next;
+            $display("===============================================");
         end
+        $display("Time: %d, CLK = %b, PC = %h", $time, clk, PC_mem);
     end 
     
     assign curr = PC_mem;

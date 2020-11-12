@@ -60,7 +60,4 @@ module scp(clk);
     shifter_2   sh2(brc_addr_part, extended);
     adder       second(branch_addr, pcplusfor, brc_addr_part);
     
-    always @(posedge clk) begin
-        $display("s0: %h", regfile.reg_mem[8]);
-    end
 endmodule
