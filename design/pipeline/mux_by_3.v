@@ -13,7 +13,7 @@ module mux_by_3(F, sel, A, B, C);
         F = 0;
     end
     
-    always @ (A, B, sel) begin
+    always @ (A, B, C, sel) begin
         case (sel)
             2'b00 : F = A;
             2'b01 : F = B;

@@ -11,10 +11,6 @@ module brc_hazard(forward1, forward2, PCWrite, IFID_write, ID_flush,
     initial begin
         forward1 = 0; forward2 = 0; PCWrite = 1; IFID_write = 1; ID_flush = 0;
     end
-    
-    always @(posedge clk) begin
-        forward1 = 0; forward2 = 0; PCWrite = 1; IFID_write = 1; ID_flush = 0;
-    end
 
     always @(negedge clk) begin
         forward1 = 0; forward2 = 0; PCWrite = 1; IFID_write = 1; ID_flush = 0;

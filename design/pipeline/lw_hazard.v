@@ -12,12 +12,6 @@ module lw_hazard (PCWrite, IFID_write, ID_flush, IDEX_memRead, IFID_regRs, IFID_
         ID_flush    = 0;
         IFID_write  = 1;
     end
-
-    always @(posedge clk) begin
-        PCWrite     = 1;
-        ID_flush    = 0;
-        IFID_write  = 1;
-    end
     
     always @(negedge clk) begin
         PCWrite     = 1;

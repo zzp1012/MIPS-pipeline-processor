@@ -13,18 +13,18 @@ module MEM_WB (WB_MemtoReg, WB_RegWrite, WB_Data_memory_Read_data, WB_ALU_result
     reg     [word - 1:0]    WB_Data_memory_Read_data,   WB_ALU_result;
 
     initial begin
-        WB_MemtoReg                 = 0;
-        WB_RegWrite                 = 0;
-        WB_Data_memory_Read_data    = 0;
-        WB_ALU_result               = 0;
-        WB_MUX8_out                 = 0;
+        WB_MemtoReg                 <= 0;
+        WB_RegWrite                 <= 0;
+        WB_Data_memory_Read_data    <= 0;
+        WB_ALU_result               <= 0;
+        WB_MUX8_out                 <= 0;
     end
 
     always @ (posedge Clock) begin
-        WB_MemtoReg                 = MEM_MemtoReg;
-        WB_RegWrite                 = MEM_RegWrite;
-        WB_Data_memory_Read_data    = MEM_Data_memory_Read_data;
-        WB_ALU_result               = MEM_ALU_result;
-        WB_MUX8_out                 = MEM_MUX8_out;
+        WB_MemtoReg                 <= MEM_MemtoReg;
+        WB_RegWrite                 <= MEM_RegWrite;
+        WB_Data_memory_Read_data    <= MEM_Data_memory_Read_data;
+        WB_ALU_result               <= MEM_ALU_result;
+        WB_MUX8_out                 <= MEM_MUX8_out;
     end
 endmodule
