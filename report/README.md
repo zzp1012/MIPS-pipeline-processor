@@ -2,19 +2,14 @@
 	<img src="../figures/ji_logo.png" alt="Jilogo" style="zoom:60%;" />
 </div>
 <center>
-	<h2>
-		VE370 Intro to Computer Organization
-	</h2>
-</center> 
-<center>
-	<h3>
-		Project 2 - Team Report
-	</h3>
+	<h1>
+		Team Report
+	</h1>
 </center>
 <center>
-   <h4>
+   <h2>
        FA 2020
-    </h4> 
+    </h2> 
 </center>
 ------------------------------------------
 
@@ -40,11 +35,6 @@
    3. Improvement
 6. Reference (copy from readme)
 7. Appendix (zzp)
-
-
-### Reference
-
-[1] Zheng, G., 2020. *Ve370 Introduction To Computer Organization Project 2*.
 
 ---------------------------------------------------------------
 
