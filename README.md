@@ -2,36 +2,21 @@
 	<img src="figures/ji_logo.png" alt="Jilogo" style="zoom:60%;" />
 </div>
 <center>
-	<h2>
-		VE370 Intro to Computer Organization
-	</h2>
-</center> 
-<center>
-	<h3>
-		Project 2 - Pipeline Processor
-	</h3>
+	<h1>
+		MIPS Pipeline Processor
+	</h1>
 </center>
 <center>
-   <h4>
+   <h2>
        FA 2020
-    </h4> 
+    </h2> 
 </center>
 
 ------------------------------------------
 
 ### Abstract
 
-This project is used to help our VE370 Project 2 team work together. 
-
-Once we open source the code for `20FA VE370 Project 2` and if you want to refer to our work, please follow the Joint Institute’s honor code and don’t plagiarize these codes directly.
-
-### First Stage
-
-**Due Date: 22:00 pm 20/11/4 Wed. **
-
-- Liu Yihua: Complete the first design of state register modules.
-- Shen Yang:  Complete the first design of forwording unit module.
-- Peng Haotian: Complete the first design of data hazard detection unit module.
+Once we open source the code for and if you want to refer to our work, please follow the Joint Institute’s honor code and don’t plagiarize these codes directly.
 
 ### Code Style
 
@@ -106,10 +91,6 @@ git push origin zzp1012 # create branch 'zzp1012' remotely on github and copy yo
 git pull origin master # synchronize files on remote master branch.
 git pull origin "you branch name" # the 'master' can be replaced by the name of the other branch created on remote project on github, then you can synchronize files on the specific remote branch.
 ```
-
-### Reference
-
-[1] Zheng, G., 2020. *Ve370 Introduction To Computer Organization Project 2*.
 
 ---------------------------------------------------------------
 
