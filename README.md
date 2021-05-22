@@ -20,7 +20,7 @@ Once we open source the code for and if you want to refer to our work, please fo
 
 ### Contributors
 
-*![Zhanpeng Zhou](https://github.com/zzp1012)*, *![Yihua Liu](https://github.com/yihuajack)*, *![Yang Shen](https://github.com/YangShen1129)* and *![Haotian Peng](https://github.com/PointLer)*
+*[Zhanpeng Zhou](https://github.com/zzp1012)*, *[Yihua Liu](https://github.com/yihuajack)*, *[Yang Shen](https://github.com/YangShen1129)* and *[Haotian Peng](https://github.com/PointLer)*
 
 ---------------------------------------------------------------
 
